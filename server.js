@@ -3,14 +3,15 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const app = express();
-const db = require("./config/keys").mongoURI;
 const users = require("./routes/user");
+require("dotenv").config();
+
 
 // DB Config
 // Connect to MongoDB
 mongoose
 	.connect(
-		db,
+		process.env.MONGO,
 		{
 			useUnifiedTopology: true,
 			useNewUrlParser: true,
