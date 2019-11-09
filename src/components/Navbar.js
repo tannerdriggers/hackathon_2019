@@ -42,15 +42,15 @@ class Navbar extends Component {
         const guestLinks = (
             <ul className="navbar-nav ml-auto float-right">
                 <li className="nav-item">
-                    <Link className="nav-link" to="/register">Sign Up</Link>
+                    <Link className="nav-link" onClick={this.toggleNavbar} to="/register">Sign Up</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/login">Sign In</Link>
+                    <Link className="nav-link" onClick={this.toggleNavbar} to="/login">Sign In</Link>
                 </li>
             </ul>
         );
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <Link className="navbar-brand" to="/">Fortunes</Link>
                 <button onClick={this.toggleNavbar} className={`${classTwo}`} type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
