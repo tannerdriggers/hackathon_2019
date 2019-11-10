@@ -7,6 +7,7 @@ const users = require("./routes/user");
 const twilio = require("./routes/twilio");
 require("dotenv").config();
 const cors = require("cors");
+const { textSubscribers } = require("./twilio");
 
 // DB Config
 // Connect to MongoDB
@@ -21,6 +22,15 @@ mongoose
 	.then(() => console.log("MongoDB successfully connected"))
 	.catch(err => console.log("Cannot connect to MongoDB: \n" + err));
 
+var now = new Date();
+var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
+if (millisTill10 < 0) {
+	millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
+}
+setTimeout(textSubscribers, millisTill10);
+textSubscribers();
+
+// Cors
 const whitelist = ['http://localhost:3000', 'http://app.thereisnotenough.space'];
 const corsOptions = {
 	origin: function (origin, callback) {

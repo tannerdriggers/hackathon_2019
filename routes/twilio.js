@@ -1,9 +1,15 @@
 const express = require('express');
 const router = express.Router();
+require("dotenv").config();
 
 const Twilio = require('../models/Twilio');
 
+const twilioAcountSid = process.env.TWILIO_ACCOUNT_SID;
+const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioClient = require('twilio')(twilioAcountSid, twilioAuthToken);
+
 router.post('/register', function (req, res) {
+    const name = req.body.name;
     const id = req.body.id;
     const phoneNumber = req.body.phoneNumber;
     Twilio.findById({ id })
@@ -14,6 +20,7 @@ router.post('/register', function (req, res) {
                 });
             } else {
                 const twilioUser = new Twilio({
+                    name: name,
                     id: id,
                     phoneNumber: phoneNumber
                 });
@@ -21,7 +28,14 @@ router.post('/register', function (req, res) {
                 twilioUser
                     .save()
                     .then(twilioUser => {
-                        res.json(twilioUser);
+                        twilioClient.validationRequests
+                            .create({
+                                friendlyName: twilioUser.name,
+                                phoneNumber: twilioUser.phoneNumber
+                            })
+                            .then(() => {
+                                res.json(twilioUser);
+                            });
                     });
             }
         });
