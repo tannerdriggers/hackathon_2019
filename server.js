@@ -21,6 +21,19 @@ mongoose
 	.then(() => console.log("MongoDB successfully connected"))
 	.catch(err => console.log("Cannot connect to MongoDB: \n" + err));
 
+const whitelist = ['http://localhost:3000', 'http://app.thereisnotenough.space'];
+const corsOptions = {
+	origin: function (origin, callback) {
+		if (whitelist.indexOf(origin) !== -1) {
+			callback(null, true);
+		} else {
+			callback(new Error('Not allowed by CORS'));
+		}
+	}
+}
+
+app.use(cors(corsOptions));
+
 app.use(passport.initialize());
 require('./passport')(passport);
 
@@ -32,8 +45,6 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.options('*', cors());
-
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	// res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
@@ -41,8 +52,8 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.use('/api/users', cors(), users);
-app.use('/api/twilio', cors(), twilio);
+app.use('/api/users', users);
+app.use('/api/twilio', twilio);
 
 app.get('/', function(req, res) {
 	res.send('Backend for http://app.thereisnotenough.space');
