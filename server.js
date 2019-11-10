@@ -22,13 +22,17 @@ mongoose
 	.then(() => console.log("MongoDB successfully connected"))
 	.catch(err => console.log("Cannot connect to MongoDB: \n" + err));
 
-// var now = new Date();
-// var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 3, 27, 0, 0) - now;
-// if (millisTill10 < 0) {
-// 	millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
-// }
-// setInterval(textSubscribers, 30000);
-// textSubscribers();
+var now = new Date();
+var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
+if (millisTill10 < 0) {
+	millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
+}
+setTimeout(startTexting, millisTill10);
+
+function startTexting() {
+	setInterval(textSubscribers, 30000);
+	textSubscribers();
+}
 
 // Cors
 const whitelist = ['http://localhost:3000', 'http://app.thereisnotenough.space'];
@@ -57,7 +61,8 @@ app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Headers", "X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
+	res.header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 	next();
 });
 
