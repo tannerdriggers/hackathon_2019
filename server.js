@@ -6,6 +6,7 @@ const app = express();
 const users = require("./routes/user");
 const twilio = require("./routes/twilio");
 require("dotenv").config();
+const cors = require("cors");
 
 // DB Config
 // Connect to MongoDB
@@ -38,8 +39,8 @@ app.use(function(req, res, next) {
 	next();
 });
 
-app.use('/api/users', users);
-app.use('/api/twilio', twilio);
+app.use('/api/users', cors(), users);
+app.use('/api/twilio', cors(), twilio);
 
 app.get('/', function(req, res) {
 	res.send('Backend for http://app.thereisnotenough.space');
