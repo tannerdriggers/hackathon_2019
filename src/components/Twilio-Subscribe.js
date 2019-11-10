@@ -9,6 +9,7 @@ class TwilioSubscribe extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: props.auth.user.name,
             id: props.auth.user.id,
             phoneNumber: '',
             errors: {}
@@ -26,10 +27,10 @@ class TwilioSubscribe extends Component {
     handleSubmit(e) {
         e.preventDefault();
         const twilio = {
+            name: this.state.name,
             id: this.state.id,
             phoneNumber: this.state.phoneNumber,
         }
-        // console.log(twilio)
         this.props.registerTwilio(twilio);
     }
 
