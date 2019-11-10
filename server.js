@@ -22,12 +22,12 @@ mongoose
 	.then(() => console.log("MongoDB successfully connected"))
 	.catch(err => console.log("Cannot connect to MongoDB: \n" + err));
 
-var now = new Date();
-var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 3, 20, 0, 0) - now;
-if (millisTill10 < 0) {
-	millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
-}
-setTimeout(textSubscribers, millisTill10);
+// var now = new Date();
+// var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 3, 27, 0, 0) - now;
+// if (millisTill10 < 0) {
+// 	millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
+// }
+// setInterval(textSubscribers, 30000);
 // textSubscribers();
 
 // Cors
@@ -55,12 +55,11 @@ app.use(
 );
 app.use(bodyParser.json());
 
-// app.use(function(req, res, next) {
-// 	res.header("Access-Control-Allow-Origin", "*");
-// 	// res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-// 	// res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-// 	next();
-// });
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
 
 app.use('/api/users', users);
 app.use('/api/twilio', twilio);
