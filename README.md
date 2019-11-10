@@ -2,5 +2,7 @@
 There is a branch for both the frontend and backend
 
 # Deployment
-Heroku
 http://app.thereisnotenough.space
+
+# Heroku
+Used Heroku for the deployment of both frontend and backend servers
