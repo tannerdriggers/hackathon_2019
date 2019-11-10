@@ -14,14 +14,14 @@ module.exports = {
                 collection.find({}).toArray(function(err, data) {
                     data.forEach(twilioSubscriber => {
                         const rand = Math.round(Math.random(fortune.length) * 250);
-                        // client.messages
-                        //     .create({
-                        //         body: fortune[rand],
-                        //         from: '+12029151649',
-                        //         to: twilioSubscriber.phoneNumber
-                        //     })
-                        //     .then(message => console.log(message.sid))
-                        //     .done();
+                        client.messages
+                            .create({
+                                body: fortune[rand],
+                                from: '+12029151649',
+                                to: twilioSubscriber.phoneNumber
+                            })
+                            .then(message => console.log(message.sid))
+                            .done();
                     });
                 });
             });
