@@ -9,10 +9,6 @@ const TwilioSchema = new Schema({
 	phoneNumber: {
         type: String,
         required: true
-    },
-    frequency: {
-        type: String,
-        required: true
     }
 });
 module.exports = Twilio = mongoose.model("twillio", TwilioSchema);

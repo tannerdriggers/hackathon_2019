@@ -6,7 +6,6 @@ const Twilio = require('../models/Twilio');
 router.route('/register', function (req, res) {
     const email = req.body.email;
     const phoneNumber = req.body.phoneNumber;
-    const frequency = req.body.frequency;
     Twilio.findOne({ email })
         .then(twilio => {
             if (twilio && twilio.phoneNumber === phoneNumber) {
@@ -16,8 +15,7 @@ router.route('/register', function (req, res) {
             } else {
                 const twilioUser = new Twilio({
                     email: email,
-                    phoneNumber: phoneNumber,
-                    frequency: frequency
+                    phoneNumber: phoneNumber
                 });
 
                 twilioUser
