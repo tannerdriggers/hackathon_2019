@@ -33,7 +33,6 @@ class Navbar extends Component {
         const classTwo = collapsed ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navber-toggler-right'
         const authLinks = (
             <ul className="navbar-nav ml-auto float-right">
-                
                 <a href="#" className="nav-link" onClick={this.onLogout.bind(this)}>
                     Logout
                 </a>
@@ -51,7 +50,7 @@ class Navbar extends Component {
         );
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <Link className="navbar-brand" to="/">Fortunes</Link>
+                <Link className="navbar-brand" to="/">Fortune Texter</Link>
                 <button onClick={this.toggleNavbar} className={`${classTwo}`} type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
