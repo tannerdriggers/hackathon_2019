@@ -31,6 +31,8 @@ app.use(
 );
 app.use(bodyParser.json());
 
+app.header("Access-Control-Allow-Origin", "*");
+
 app.use('/api/users', users);
 
 app.get('/', function(req, res) {
