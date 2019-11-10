@@ -46,7 +46,10 @@ const corsOptions = {
 	}
 }
 
-app.use(cors());
+app.use(cors({
+	origin: 'http://localhost:3000',
+	credentials: true
+}));
 
 app.use(passport.initialize());
 require('./passport')(passport);
@@ -62,7 +65,7 @@ app.use(bodyParser.json());
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
-	res.header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+	res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
 	next();
 });
 
