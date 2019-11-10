@@ -3,18 +3,18 @@ const router = express.Router();
 
 const Twilio = require('../models/Twilio');
 
-router.route('/register', function (req, res) {
-    const email = req.body.email;
+router.post('/register', function (req, res) {
+    const id = req.body.id;
     const phoneNumber = req.body.phoneNumber;
-    Twilio.findOne({ email })
+    Twilio.findById({ id })
         .then(twilio => {
             if (twilio && twilio.phoneNumber === phoneNumber) {
                 return res.status(400).json({
-                    email: 'Already registered.'
+                    phoneNumber: 'Already registered.'
                 });
             } else {
                 const twilioUser = new Twilio({
-                    email: email,
+                    id: id,
                     phoneNumber: phoneNumber
                 });
 
@@ -27,10 +27,10 @@ router.route('/register', function (req, res) {
         });
 });
 
-router.route('/unregister', function (req, res) {
-    const email = req.body.email;
+router.post('/unregister', function (req, res) {
+    const id = req.body.id;
     const phoneNumber = req.body.phoneNumber;
-    Twilio.findOne({ email })
+    Twilio.findById({ id })
         .then(twilio => {
             if (twilio && twilio.phoneNumber === phoneNumber) {
                 twilio
@@ -40,7 +40,7 @@ router.route('/unregister', function (req, res) {
                     });
             } else {
                 return res.status(400).json({
-                    email: 'No Phone Number to remove.'
+                    phoneNumber: 'No Phone Number to remove.'
                 });
             }
         });
