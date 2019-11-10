@@ -29,10 +29,9 @@ router.post('/register', function (req, res) {
 
 router.post('/unregister', function (req, res) {
     const id = req.body.id;
-    const phoneNumber = req.body.phoneNumber;
     Twilio.findById({ id })
         .then(twilio => {
-            if (twilio && twilio.phoneNumber === phoneNumber) {
+            if (twilio) {
                 twilio
                     .remove()
                     .then(done => {
