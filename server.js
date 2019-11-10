@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const app = express();
 const users = require("./routes/user");
+const twilio = require("./routes/twilio");
 require("dotenv").config();
-
 
 // DB Config
 // Connect to MongoDB
@@ -38,9 +38,10 @@ app.use(function(req, res, next) {
 });
 
 app.use('/api/users', users);
+app.use('/api/twilio', twilio);
 
 app.get('/', function(req, res) {
-	res.send('hello');
+	res.send('Backend for http://app.thereisnotenough.space');
 });
 
 // Run server
