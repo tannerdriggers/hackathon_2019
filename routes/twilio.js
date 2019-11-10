@@ -12,7 +12,7 @@ router.post('/register', function (req, res) {
     const name = req.body.name;
     const id = req.body.id;
     const phoneNumber = req.body.phoneNumber;
-    Twilio.findById({ id })
+    Twilio.findById( id )
         .then(twilio => {
             if (twilio && twilio.phoneNumber === phoneNumber) {
                 return res.status(400).json({
@@ -27,17 +27,29 @@ router.post('/register', function (req, res) {
 
                 twilioUser
                     .save()
-                    .then(twilioUser => {
+                    .then(twilioU => {
                         twilioClient.validationRequests
                             .create({
-                                friendlyName: twilioUser.name,
-                                phoneNumber: twilioUser.phoneNumber
+                                friendlyName: twilioU.name,
+                                phoneNumber: twilioU.phoneNumber
                             })
                             .then(() => {
                                 res.json(twilioUser);
+                            })
+                            .catch(err => {
+                                console.log(err);
+                                return res.status(400).json({
+                                    phoneNumber: "Can't add another number."
+                                });
                             });
                     });
             }
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(400).json({
+                phoneNumber: "Twilio account not found."
+            });
         });
 });
 

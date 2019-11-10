@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Create Schema
 const TwilioSchema = new Schema({
-	email: {
+	name: {
+		type: String,
+		required: true
+	},
+	id: {
 		type: String,
 		required: true
 	},
@@ -11,4 +15,4 @@ const TwilioSchema = new Schema({
         required: true
     }
 });
-module.exports = Twilio = mongoose.model("twillio", TwilioSchema);
+module.exports = Twilio = mongoose.model("twilio", TwilioSchema);
