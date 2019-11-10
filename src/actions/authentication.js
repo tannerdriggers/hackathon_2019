@@ -5,11 +5,13 @@ import jwt_decode from 'jwt-decode';
 
 export const registerUser = (user, history) => dispatch => {
     axios.post(process.env.REACT_APP_BACKEND + '/api/users/register', user)
-        .then(res => history.push('/login'))
+        .then(res => {
+            history.push('/Login');
+        })
         .catch(err => {
             dispatch({
                 type: GET_ERRORS,
-                payload: err.response.data
+                payload: err.response ? err.response.data : err
             });
         });
 }
