@@ -32,7 +32,7 @@ const corsOptions = {
 	}
 }
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(passport.initialize());
 require('./passport')(passport);
