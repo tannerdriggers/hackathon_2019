@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { registerTwilio } from '../actions/twilio';
 import { connect } from 'react-redux';
-import isEmpty from '../is-empty';
 
 class TwilioSubscribe extends Component {
     constructor(props) {
@@ -51,6 +50,7 @@ class TwilioSubscribe extends Component {
                             name="phoneNumber"
                             onChange={this.handleInputChange}
                             value={this.state.phoneNumber}
+                            disabled
                         />
                         {errors.phoneNumber && (<div className="invalid-feedback">{errors.phoneNumber}</div>)}
                     </div>
