@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 require("dotenv").config();
 
+// const textSubscriber = require('../twilio').textSubscriber;
+
 const Twilio = require('../models/Twilio');
 
 const twilioAcountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -39,7 +41,7 @@ router.post('/register', function (req, res) {
                             .catch(err => {
                                 console.log(err);
                                 return res.status(400).json({
-                                    phoneNumber: "Can't add another number."
+                                    phoneNumber: "Can't add a number to Twilio's Registered Numbers list at this moment. Try again later."
                                 });
                             });
                     });
@@ -70,5 +72,10 @@ router.post('/unregister', function (req, res) {
             }
         });
 });
+
+// router.post('/textUser', function(req, res) {
+//     const id = req.body.id;
+//     textSubscriber(id, res);
+// });
 
 module.exports = router;

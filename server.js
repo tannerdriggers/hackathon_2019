@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const app = express();
@@ -8,31 +7,6 @@ const twilio = require("./routes/twilio");
 require("dotenv").config();
 const cors = require("cors");
 const { textSubscribers } = require("./twilio");
-
-// DB Config
-// Connect to MongoDB
-mongoose
-	.connect(
-		process.env.MONGO,
-		{
-			useUnifiedTopology: true,
-			useNewUrlParser: true,
-		}
-	)
-	.then(() => console.log("MongoDB successfully connected"))
-	.catch(err => console.log("Cannot connect to MongoDB: \n" + err));
-
-var now = new Date();
-var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
-if (millisTill10 < 0) {
-	millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
-}
-setTimeout(startTexting, millisTill10);
-
-function startTexting() {
-	setInterval(textSubscribers, 30000);
-	textSubscribers();
-}
 
 // Cors
 const whitelist = ['http://localhost:3000', 'http://app.thereisnotenough.space'];
@@ -46,7 +20,7 @@ const corsOptions = {
 	}
 }
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(passport.initialize());
 require('./passport')(passport);
@@ -70,7 +44,7 @@ app.use('/api/users', users);
 app.use('/api/twilio', twilio);
 
 app.get('/', function(req, res) {
-	res.send('Backend for http://app.thereisnotenough.space');
+	res.send('Backend for <a href="http://app.thereisnotenough.space">this website</a>');
 });
 
 // Run server
