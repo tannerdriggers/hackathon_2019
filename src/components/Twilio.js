@@ -13,7 +13,7 @@ class Twilio extends Component {
 
     render() {
         return (
-            <div className="card border-0 m-3">
+            <div className="card border-0 m-3 mt-5">
                 <div className="card-body">
                     <div className="card-title">
                         <h1 className="text-center text-dark">Daily Text Messages</h1>

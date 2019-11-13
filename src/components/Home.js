@@ -29,7 +29,7 @@ class Home extends Component {
         );
 
         const guest = (
-            <div>Login to see your personalized fortune.</div>
+            <h1 className="text-light text-center mt-5">Log in to see your personalized fortune.</h1>
         );
 
         return (

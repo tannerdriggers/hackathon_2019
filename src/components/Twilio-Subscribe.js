@@ -39,6 +39,7 @@ class TwilioSubscribe extends Component {
         return (
             <div className="container" style={{ marginTop: '50px', width: '700px' }}>
                 <h2 style={{ marginBottom: '40px' }}>Subscribe to Daily Texts</h2>
+                <p className="text-danger">*Does not work because of Twilio's Trial mode restrictions</p>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <input
